@@ -20,8 +20,6 @@
   truncate-length="15"
 ></v-file-input>
 
-    
-
     <v-textarea
           outlined
           name="input-7-4"
@@ -29,10 +27,8 @@
           placeholder="sms goes here..."
         ></v-textarea>
 
-    
-
     <v-btn
-      :disabled="!valid"
+      
       color="success"
       class="mr-4"
       @click="validate"
