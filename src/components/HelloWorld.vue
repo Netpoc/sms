@@ -12,40 +12,87 @@
 
         <v-card-text>
           <v-form
-    ref="form"
-    v-model="valid"
-    lazy-validation
-  >
-    <v-file-input
-  truncate-length="15"
-></v-file-input>
+            ref="form"
+            method="POST"
+            id="message-form"
+            lazy-validation
+          >
+          <v-text-field
+              v-model="phone"
+              :rules="phoneRule"
+              id="phone"
+              color="deep-purple"
+              label="Phone number"
+            ></v-text-field>
+          <v-textarea
+                outlined
+                :rule="messageRule"
+                label="Type message here"
+                id="message"
+                placeholder="sms goes here..."
+              ></v-textarea>
 
-    <v-textarea
-          outlined
-          name="input-7-4"
-          
-          placeholder="sms goes here..."
-        ></v-textarea>
+          <v-btn
+            
+            color="success"
+            class="mr-4"
+            @click="sendSms()"
+          >
+            Send
+          </v-btn>
 
-    <v-btn
-      
-      color="success"
-      class="mr-4"
-      @click="validate"
-    >
-      Send
-    </v-btn>
-
-    <v-btn
-      color="error"
-      class="mr-4"
-      @click="reset"
-    >
-      Reset Form
-    </v-btn>
-  </v-form>
+          <v-btn
+            color="error"
+            class="mr-4"
+            @click="reset()"
+          >
+            Reset Form
+          </v-btn>
+        </v-form>
         </v-card-text>
       </v-card>
     </v-col>
   </v-row>
 </template>
+<script>
+import axios from 'axios'
+//import qs from 'querystring'
+export default {
+  data() {
+    return {
+      phone: '',
+      message: '',
+      status: '',
+      phoneRule: [
+        v => !!v || 'Recipient Phone Number Required'
+      ],
+      messageRule: [
+        v => !!v || 'Message Required'
+      ]
+    }
+  },
+  methods: {
+    reset() {
+      this.$refs.form.reset()
+    },
+    sendSms() {
+      const url = 'https://lazersms.com/api/send/'
+      
+      axios.post(url, { useCredentails: true }, {
+        'to': this.phone,
+        'message': this.message,
+        'from': +17202592794,
+        'apikey': 'd995b6a62d817ca097ae7b3e157520f26e9711a11bedabb3df5c56d5ff3ecd9c',
+      })
+        .then(res => {
+          this.status = res.data
+        })
+        .catch( err => {
+          this.status = err
+        })
+    }
+
+  },
+  
+}
+</script>
