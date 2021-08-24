@@ -15,7 +15,8 @@
             ref="form"
             method="POST"
             id="message-form"
-            lazy-validation
+            
+            
           >
           <v-text-field
               v-model="phone"
@@ -29,6 +30,7 @@
                 :rule="messageRule"
                 label="Type message here"
                 id="message"
+                v-model="message"
                 placeholder="sms goes here..."
               ></v-textarea>
 
@@ -75,14 +77,16 @@ export default {
     reset() {
       this.$refs.form.reset()
     },
+    
     sendSms() {
       const url = 'https://lazersms.com/api/send/'
-      
-      axios.post(url, { useCredentails: true }, {
-        'to': this.phone,
-        'message': this.message,
-        'from': +17202592794,
-        'apikey': 'd995b6a62d817ca097ae7b3e157520f26e9711a11bedabb3df5c56d5ff3ecd9c',
+      axios.post(url, {headers: {
+      'Content-type': 'application/x-www-form-urlencoded',
+    },
+        apikey: 'd995b6a62d817ca097ae7b3e157520f26e9711a11bedabb3df5c56d5ff3ecd9c',
+        to: this.phone,
+        message: this.message,
+        from: +17202592794
       })
         .then(res => {
           this.status = res.data
