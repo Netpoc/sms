@@ -80,9 +80,7 @@ export default {
     
     sendSms() {
       const url = 'https://lazersms.com/api/send/'
-      axios.post(url, {headers: {
-      'Content-type': 'application/x-www-form-urlencoded',
-    },
+      axios.post(url, {
         apikey: 'd995b6a62d817ca097ae7b3e157520f26e9711a11bedabb3df5c56d5ff3ecd9c',
         to: this.phone,
         message: this.message,
