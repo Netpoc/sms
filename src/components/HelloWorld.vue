@@ -89,10 +89,10 @@ export default {
         from: +17202592794
       })
         .then(res => {
-          this.status = res.data
+          console.log(res)
         })
         .catch( err => {
-          this.status = err
+          console.log(err)
         })
     }
 
