@@ -29,8 +29,8 @@
                 outlined
                 :rule="messageRule"
                 label="Type message here"
-                id="message"
-                v-model="message"
+                id="text"
+                v-model="text"
                 placeholder="sms goes here..."
               ></v-textarea>
 
@@ -63,7 +63,7 @@ export default {
   data() {
     return {
       phone: '',
-      message: '',
+      text: '',
       status: '',
       phoneRule: [
         v => !!v || 'Recipient Phone Number Required'
@@ -79,13 +79,11 @@ export default {
     },
     
     sendSms() {
-      const url = 'https://lazersms.com/api/send/'
-      axios.post(url, null, { params: {
-        apikey: 'd995b6a62d817ca097ae7b3e157520f26e9711a11bedabb3df5c56d5ff3ecd9c',
-        to: this.phone,
-        message: this.message,
-        from: +17202592794
-      }})
+      const url = 'https://dramatic-agreeable-forest.glitch.me/send_text'
+      axios.post(url,{headers:{"Content-Type" : "application/json"}}, {
+      body: this.text,
+      to: this.phone
+      })
         .then(res => {
           console.log(res)
         })
