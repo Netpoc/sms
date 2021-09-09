@@ -80,9 +80,9 @@ export default {
     
     sendSms() {
       const url = 'https://dramatic-agreeable-forest.glitch.me/send_text'
-      axios.post(url,{headers:{"Content-Type" : "application/json"}}, {
-      body: this.text,
-      to: this.phone
+      axios.post(url, {
+      text: this.text,
+      phone: this.phone
       })
         .then(res => {
           console.log(res)
